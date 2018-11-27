@@ -2,7 +2,7 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/.idea/01 Vue.js基本使用.iml" filepath="$PROJECT_DIR$/.idea/01 Vue.js基本使用.iml" />
+      <module fileurl="file://$PROJECT_DIR$/../Vue学习/.idea/Vue.js学习.iml" filepath="$PROJECT_DIR$/../Vue学习/.idea/Vue.js学习.iml" />
     </modules>
   </component>
 </project>
