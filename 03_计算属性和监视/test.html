@@ -1,8 +1,8 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <title>03_计算属性和监视</title>
+    <meta charset="UTF-8">
+    <title>03_计算属性和监视</title>
 </head>
 <body>
 <!--
@@ -17,20 +17,48 @@
   计算属性存在缓存, 多次读取只执行一次getter计算
 -->
 <div id="demo">
-  姓: <input type="text" placeholder="First Name" v-model="firstName"><br>
-  名: <input type="text" placeholder="Last Name" v-model="lastName"><br>
-  <!--fullName1是根据fistName和lastName计算产生-->
-  姓名1(单向): <input type="text" placeholder="Full Name1" v-model="fullName1"><br>
-  姓名2(单向): <input type="text" placeholder="Full Name2" v-model="fullName2"><br>
-  姓名3(双向): <input type="text" placeholder="Full Name3" v-model="fullName3"><br>
-
-  <p>{{fullName1}}</p>
-  <p>{{fullName1}}</p>
+    姓: <input type="text" placeholder="First Name" v-model="firstName"><br>
+    名: <input type="text" placeholder="Last Name" v-model="lastName"><br>
+    <!--fullName1是根据fistName和lastName计算产生-->
+    姓名1(单向): <input type="text" placeholder="Full Name1" v-model="fullName1"><br>
+    姓名2(单向): <input type="text" placeholder="Full Name2" v-model="fullName2"><br>
+    姓名3(双向): <input type="text" placeholder="Full Name3" v-model="fullName3"><br>
+    <p>{{fullName1}}</p>
+    <p>{{fullName1}}</p>
 </div>
-
 <script type="text/javascript" src="../js/vue.js"></script>
 <script type="text/javascript">
-
+    const vm = new Vue({
+        el: '#demo',
+        data: {
+            firstName: 'a',
+            lastName: 'b',
+            fullName2: 'a_b'
+        },
+        computed: {//什么时候执行：初始化显示/相关的data属性数据发生变化
+            fullName1() {//计算属性中的一个方法
+                return this.firstName + "_" + this.lastName;
+            },
+            fullName3:{
+                get(){
+                    return this.firstName + "_" + this.lastName;
+                },
+                set(data){
+                    const names=data.split('_');
+                    this.firstName=names[0];
+                    this.lastName=names[1];
+                }
+            }
+        },
+        watch: {
+            firstName: function (value) {//配置监视
+                this.fullName2 = value + "_" + this.lastName;//firstName发生变化时
+            }
+        }
+    })
+    vm.$watch('lastName', function (value) {
+        this.fullName2 = this.firstName + "_" + value;
+    })
 </script>
 </body>
 </html>
